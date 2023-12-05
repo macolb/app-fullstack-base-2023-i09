@@ -11,6 +11,7 @@ class Main implements EventListenerObject{
             console.log(u.mostrar(),this.usuarios.length);
         }
     }
+
     private buscarDevices() {
         
         let xmlRequest = new XMLHttpRequest();
@@ -27,7 +28,7 @@ class Main implements EventListenerObject{
 
                     for (let d of datos) {
                         let itemList =
-                            ` <li class="collection-item avatar">
+                        ` <li class="collection-item avatar">
                         <img src="./static/images/lightbulb.png" alt="" class="circle">
                         <span class="title">${d.name}</span>
                         <p>
@@ -48,6 +49,8 @@ class Main implements EventListenerObject{
                           On
                         </label>
                       </div>
+                      <button id="btnEdit" class="waves-effect waves-light btn modal-trigger"><i class="large material-icons">create</i></button>
+                      <button id="btnDelete" class="waves-effect waves-light btn modal-trigger"><i class="large material-icons">delete</i></button>
                         </a>
                       </li>`
                        
@@ -110,7 +113,7 @@ class Main implements EventListenerObject{
             pInfo.className ="textoCorrecto";
             
         } else {
-            pInfo.innerHTML = "Usuairo o contraseña incorrecta!!!";
+            pInfo.innerHTML = "Usuario o contraseña incorrecta!!!";
             pInfo.className ="textoError";
         }
         
@@ -143,6 +146,7 @@ window.addEventListener("load", () => {
 
     var elems = document.querySelectorAll('select');
     M.FormSelect.init(elems, "");
+
     var elemsModal = document.querySelectorAll('.modal');
     var instances = M.Modal.init(elemsModal, "");
 
@@ -154,9 +158,9 @@ window.addEventListener("load", () => {
     let botonGuardar = document.getElementById("btnGuardar");
     botonGuardar.addEventListener("click",main1);
 
-    let checkbox = document.getElementById("cb");
+    /*let checkbox = document.getElementById("cb");
     checkbox.addEventListener("click", main1);
-    
+    */
 
 
 });

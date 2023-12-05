@@ -9,22 +9,24 @@ main {
     flex: 1 0 auto;
 }
 div>div.col{
-    background-color: bisque;
+    background-color: rgb(255, 255, 255);
     /*border: 2px solid black;*/
+
 
 }
 
 #btnListar{
     width: 100%;
 }
+
 .textoError{
     width: 50%;
     margin: auto;
     font-size: x-small;
     text-align: center;
     color: red;
-    border: solid 5px chocolate;
 }
+
 .textoCorrecto{
     font-size: x-small;
     text-align: center;
@@ -35,4 +37,14 @@ div>div.col{
 .row{
     margin: 20px;
     padding: 0px;
+}
+
+#btnGuardar{
+    width: 50%;
+    text-align: center;
+
+}
+
+.secondary-content{
+    margin: 20px;
 }
