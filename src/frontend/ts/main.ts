@@ -32,7 +32,7 @@ class Main implements EventListenerObject{
 
                     for (let d of datos) {
                         let itemList =
-                        ` <li class="collection-item avatar">
+                        ` <li class="collection-item avatar" style="height: 100px">
                         <img src="./static/images/lightbulb.png" alt="" class="circle">
                         <span class="title">${d.name}</span>
                         <p>
@@ -128,8 +128,9 @@ class Main implements EventListenerObject{
             this.buscarDevices();   
         } else if ("btnGuardar" == elemento.id) {
             this.cargarUsuario();
-        } else if ("btnEdit" == elemento.id) {
-            this.cargarUsuario();
+        } else if ("dev_type" == elemento.id) {
+            //this.cargarUsuario();
+            console.log("cambio el select");
         } else if (elemento.id.startsWith("cb_")) {
             let checkbox = <HTMLInputElement>elemento;
             console.log(checkbox.getAttribute("nuevoAtt"),checkbox.checked, elemento.id.substring(3, elemento.id.length));            
@@ -144,18 +145,25 @@ class Main implements EventListenerObject{
 window.addEventListener("load", () => {
 
     var elems = document.querySelectorAll('select');
-    M.FormSelect.init(elems, "");
+    var instance = M.FormSelect.init(elems, "");
 
     var elemsModal = document.querySelectorAll('.modal');
     var instances = M.Modal.init(elemsModal, "");
 
     let main1: Main = new Main();
-    let boton = document.getElementById("btnListar");
-    
+    let boton = document.getElementById("btnListar");    
     boton.addEventListener("click", main1);   
 
     let botonGuardar = document.getElementById("btnGuardar");
     botonGuardar.addEventListener("click",main1);
+
+    //var DeviceType = document.getElementById("dev_type");
+    //DeviceType.addEventListener("change",main1);
+
+    //let botonDevType = document.getElementById("dev_type");
+    //botonDevType.addEventListener("click",main1);
+
+    //console.log(instances2.getSelectedValues());
 
     /*let checkbox = document.getElementById("cb");
     checkbox.addEventListener("click", main1);

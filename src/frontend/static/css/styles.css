@@ -41,8 +41,6 @@ div>div.col{
 
 #btnGuardar{
     width: 50%;
-    text-align: center;
-
 }
 
 .secondary-content{
@@ -65,9 +63,6 @@ div>div.col{
     margin: 5px;
 }
 
-.collection-item avatar{
-    margin: 5px;
-    padding: 5px;
-}
+
 
 
