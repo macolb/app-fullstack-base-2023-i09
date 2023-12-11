@@ -35,7 +35,7 @@ div>div.col{
 }
 
 .row{
-    margin: 20px;
+    margin: 10px;
     padding: 0px;
 }
 
@@ -46,5 +46,28 @@ div>div.col{
 }
 
 .secondary-content{
-    margin: 20px;
+    margin: auto;
 }
+
+#btnDelete{
+    width: 45%;
+    text-align: left;
+    margin: 1px;    
+}
+
+#btnEdit{
+    width: 45%;
+    text-align: right;
+    margin: 1px;    
+}
+
+.switch{
+    margin: 5px;
+}
+
+.collection-item avatar{
+    margin: 5px;
+    padding: 5px;
+}
+
+

@@ -23,6 +23,10 @@ class Main implements EventListenerObject{
                     console.log(xmlRequest.responseText, xmlRequest.readyState);    
                     let respuesta = xmlRequest.responseText;
                     let datos:Array<Device> = JSON.parse(respuesta);
+
+                    //let datitos:Array<Sensor> = JSON.parse(respuesta);
+
+                    //console.log(datos[].description);
                     
                     let ul = document.getElementById("listaDisp"); 
 
@@ -84,12 +88,8 @@ class Main implements EventListenerObject{
                     alert("Salio mal la consulta");
                 }
             }
-            
-            
-
         }
-        
-       
+               
         xmlRequest.open("POST", "http://localhost:8000/device", true)
         xmlRequest.setRequestHeader("Content-Type", "application/json");
         let s = {
@@ -113,7 +113,7 @@ class Main implements EventListenerObject{
             pInfo.className ="textoCorrecto";
             
         } else {
-            pInfo.innerHTML = "Usuario o contraseña incorrecta!!!";
+            pInfo.innerHTML = "Usuario o contraseña incorrecta!";
             pInfo.className ="textoError";
         }
         
@@ -125,15 +125,14 @@ class Main implements EventListenerObject{
         
         
         if ("btnListar" == elemento.id) {
-            this.buscarDevices();
-
-            
+            this.buscarDevices();   
         } else if ("btnGuardar" == elemento.id) {
+            this.cargarUsuario();
+        } else if ("btnEdit" == elemento.id) {
             this.cargarUsuario();
         } else if (elemento.id.startsWith("cb_")) {
             let checkbox = <HTMLInputElement>elemento;
-            console.log(checkbox.getAttribute("nuevoAtt"),checkbox.checked, elemento.id.substring(3, elemento.id.length));
-            
+            console.log(checkbox.getAttribute("nuevoAtt"),checkbox.checked, elemento.id.substring(3, elemento.id.length));            
             this.ejecutarPost(parseInt(checkbox.getAttribute("nuevoAtt")),checkbox.checked);
         }
 

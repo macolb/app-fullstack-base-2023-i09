@@ -18,6 +18,9 @@ app.use(express.json());
 app.use(express.static('/home/node/app/static/'));
 
 //=======[ Main module code ]==================================================
+
+//=====================GET Functions============================
+
 app.get("/otraCosa/:id/:algo",(req,res,next)=>{
     console.log("id",req.params.id)
     console.log("algo",req.params.algo)
@@ -30,11 +33,59 @@ app.get("/otraCosa/:id/:algo",(req,res,next)=>{
             console.log("err",err);
             res.status(409).send(err);
         }
-        
-        //console.log(fields);
     });
     
 });
+
+app.get("/users",(req,res,next)=>{
+    res.send("Listo");
+    
+});
+
+app.get('/devices/', function(req, res, next) {
+    devices = [
+        { 
+            'id': 1, 
+            'name': 'Luces balcon', 
+            'description': 'Luces tipo guirnalda', 
+            'state': 0, 
+            'type': 1, 
+        },
+        { 
+            'id': 2, 
+            'name': 'Bomba riego', 
+            'description': 'Bomba de riego automatica', 
+            'state': 0, 
+            'type': 2, 
+        },
+        { 
+            'id': 3, 
+            'name': 'Pulverizador', 
+            'description': 'Plantas de poco riego', 
+            'state': 0, 
+            'type': 3, 
+        },
+        { 
+            'id': 4, 
+            'name': 'Parlante', 
+            'description': 'Rele en enchufe', 
+            'state': 0, 
+            'type': 4, 
+        },
+        { 
+            'id': 5, 
+            'name': 'TV', 
+            'description': 'TV led Habitacion', 
+            'state': 0, 
+            'type': 5, 
+        }
+    ]
+    res.send(JSON.stringify(devices)).status(200);
+});
+
+
+//=====================POST Functions============================
+
 app.post("/device",(req,res,next)=>{
     console.log("Llego el post",
     "UPDATE Devices SET state = "+req.body.state+" WHERE id = "+req.body.id);
@@ -45,32 +96,7 @@ app.post("/device",(req,res,next)=>{
     }
     
 });
-app.get('/devices/', function(req, res, next) {
-    devices = [
-        { 
-            'id': 1, 
-            'name': 'Lampara 1', 
-            'description': 'Luz living', 
-            'state': 0, 
-            'type': 1, 
-        },
-        { 
-            'id': 2, 
-            'name': 'Ventilador 1', 
-            'description': 'Ventilador Habitacion', 
-            'state': 1, 
-            'type': 2, 
-        },
-        { 
-            'id': 3, 
-            'name': 'TV', 
-            'description': 'TV led Habitacion', 
-            'state': 0, 
-            'type': 3, 
-        }
-    ]
-    res.send(JSON.stringify(devices)).status(200);
-});
+
 
 app.listen(PORT, function(req, res) {
     console.log("NodeJS API running correctly");

@@ -28,7 +28,7 @@
         </header>
         
 <main>
-    <div class="container" style="margin-left: 15px;">
+    <div class="container">
         <div class="row">  
             <!--                 
             <div id="lista" miAtt="true" class="col s12 m6 l6">
@@ -52,9 +52,9 @@
             <!--<a class="waves-effect waves-light btn modal-trigger" href="#modal1">Iniciar Sesion</a>-->
 
                     <!-- Modal Structure -->
-            <div id="modal1" class="modal">
+            <div id="modal1" class="modal" style="border-radius:10px;" >
                 <div class="modal-content">
-                    <div class="col s12 m6 l12">
+                    <div class="col s12 m12 l12 xl12">
                         <h1>Cargar usuario</h1>
 
                         <div class="input-field">                       
@@ -80,6 +80,36 @@
                     </div>
                 </div>
             </div>
+
+                    <!-- Modal Structure -->
+                    <div id="modal2" class="modal" >
+                        <div class="modal-content">
+                            <div class="col s12 m12 l12 xl12">
+                                <h1>Cargar Dispositivo</h1>
+        
+                                <div class="input-field">                       
+                                <input id="disp" type="text" value="" placeholder="user" />
+                                <label for="disp">id</label>                        
+                                </div> 
+        
+                                <div class="input-field">
+                                    <input id="type" type="text">
+                                    <label for="type">type</label>
+                                </div>
+                    
+                                <p>
+                                    <label>
+                                        <input type="checkbox"  />
+                                        <span>Recordar usuario y contraseña</span>
+                                    </label>
+                                </p>
+        
+                                <p id="pInfo"></p>
+                    
+                                <button id="btnGuardar2" class="modal-close  btn">Guardar</button>
+                            </div>
+                        </div>
+                    </div>            
        
                 <!--
                 <div class="input-field col s12">
@@ -114,14 +144,14 @@
         </div>
     </div>	
 
-    <div id="lista" miAtt="true" class="col s12 m6 l6">
+    <div id="lista" miAtt="true" class="container col s12 m6 l6">
         <ul class="collection" id="listaDisp">
                    
         </ul>
     </div>
 
-    <div class="buttonCenter">
-    <a id="btnDevice" class="btn-floating btn-large waves-effect waves-light center"><i class="material-icons">add</i></a>
+    <div class="container" >
+    <a id="btnDevice" class="btn-floating btn-large waves-effect waves-light center modal-trigger" href="#modal2"><i class="material-icons">add</i></a>
     </div>
 
 
@@ -130,13 +160,13 @@
 
 <!-- Page Footer -->
 <footer class="page-footer" style="background-color:#124580">
-    <div class="container">
+    <!-- <div class="container"> -->
         <div class="row">
-            <div class="col l6 s6" style="background-color:#124580">
+            <div id="data" class="col l6 s6 left-align" style="background-color:#124580">
                 <h5 class="white-text">Smart Home</h5>
                 <p class="grey-text text-lighten-4">Copyright ### - 2023</p>
             </div>
-            <div class="col l6 s6" style="background-color:#124580">
+            <div id="contact" class="col l6 s6 right-align" style="background-color:#124580">
                 <h5 class="white-text right-align">Contact</h5>
                     <p class="white-text right-align">
                         <a class="grey-text text-lighten-3" href="!#">Email | </a>
@@ -145,7 +175,7 @@
                     </p>
             </div>
         </div>
-    </div>
+    <!--</div>-->
 </footer>
 
 <!--JavaScript at end of body for optimized loading-->
