@@ -3,15 +3,13 @@ class Device{
   name: string;
   description: string;
   state: boolean;
-  type: number;
-  lastupdate: Date;
+  lastchange: Date;
 }
 
 class Sensor{
   id: number;
   name: string;
   description: string;
-  range: number;
   measure: number;
   unit: string;
   lastupdate: Date;  

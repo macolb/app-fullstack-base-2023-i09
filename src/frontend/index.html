@@ -56,7 +56,7 @@
             <div id="modal1" class="modal" >
                 <div class="modal-content">
                     <div class="col s12 m6 l12">
-                        <h1>Cargar usuario</h1>
+                        <h2>Cargar usuario</h2>
 
                         <div class="input-field">                       
                         <input id="iNombre" type="text" value="" placeholder="user" />
@@ -76,8 +76,10 @@
                         </p>
 
                         <p id="pInfo"></p>
-            
-                        <button id="btnGuardar" class="modal-close btn">Guardar</button>
+
+                        <div class="col s6 m6 l6" style="text-align: center;">                        
+                            <button id="btnGuardar" class="modal-close btn waves-effect waves-light button-view" >Guardar</button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -88,7 +90,7 @@
                             <div class="col s12 m6 l12">
 
                                 <h3>Nuevo Dispositivo</h3>
-
+<!--
                             <div class="input-field col s12">
                                     <select id="dev_type">
                                       <option value="" disabled selected>Choose Device</option>
@@ -103,24 +105,24 @@
                                 <input id="dev_id" type="text" value="" />
                                 <label for="dev_id">ID</label>                        
                                 </div> 
-        
+-->        
                                 <div class="input-field">
                                     <input id="dev_name" type="text">
                                     <label for="dev_name">Name</label>
                                 </div>
 
                                 <div class="input-field">
-                                    <input id="description" type="text">
-                                    <label for="description">Description</label>
+                                    <input id="dev_descript" type="text">
+                                    <label for="dev_descript">Description</label>
                                 </div>
-                    
+<!--                    
                                 <p>
                                     <label>
                                         <input type="checkbox"  />
                                         <span>Start device with state OFF</span>
                                     </label>
                                 </p>
-        
+-->         
                                 <p id="pInfo"></p>
                                 <div class="col s6 m6 l6" style="text-align: center;">
                                     <button id="btn_create" class="modal-close btn">Crear</button>
@@ -156,11 +158,11 @@
                     <!--
                     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi, alias, pariatur tempore quas at iusto fugit nostrum consequuntur, quidem deleniti ad excepturi non adipisci voluptas eos nisi commodi necessitatibus dolorum.</p>
                     -->
-    <div class="container">
-        <div class="col s4 m2 l2 xl2" style="background-color:#ffffff" >
-            <button class="btn waves-effect waves-light button-view" id="btnListar" name="hello_button" >Listar Dispositivos</button>
+        <div class="container">
+            <div class="col s4 m2 l4 xl4" style="text-align: center;" >
+                <button class="btn waves-effect waves-light button-view" id="btnListar" name="hello_button" >Listar Dispositivos</button>
+            </div>
         </div>
-    </div>
     
     </div>	
 

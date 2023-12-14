@@ -37,21 +37,32 @@ CREATE TABLE `Devices` (
   `name` varchar(64) NOT NULL,
   `description` varchar(128) NOT NULL,
   `state` int(11) NOT NULL,
-  `type` int(11) NOT NULL
+  `last_change` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP  /*agregado */
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `Sensors` (
+  `id` int(11) NOT NULL,
+  `name` varchar(64) NOT NULL,
+  `description` varchar(128) NOT NULL, 
+  `measure` int(11) NOT NULL,
+  `unit` varchar(20) NOT NULL,  
+  `last_update` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP  /*agregado */
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
 
 --
 -- Dumping data for table `Devices`
 --
 
-INSERT INTO `Devices` (`id`, `name`, `description`, `state`, `type`) VALUES
-(1, 'Lampara 1', 'Luz living', 1, 0),
-(2, 'Lampara 2', 'Luz cocina', 0, 0),
-(3, 'Velador', 'Velador living', 1, 0),
-(4, 'Persiana 1', 'Persiana living', 1, 1),
-(5, 'Persiana 2', 'Persiana de la cocina', 1, 1),
-(6, 'Persiana 3', 'Persiana balcon', 0, 1);
+INSERT INTO `Devices` (`id`, `name`, `description`, `state`) VALUES
+(1, 'Lampara 1', 'Luz living', 1),
+(2, 'Lampara 2', 'Luz cocina', 0),
+(3, 'Velador', 'Velador living', 1);
 
+INSERT INTO `Sensors` (`id`, `name`, `description`, `measure`,`unit`) VALUES
+(1, 'Sensor 1', 'Sensor de temperatura', 30, '°C'),
+(2, 'Sensor 2', 'Sensor de humedad', 60, '%'),
+(3, 'Sensor 3', 'Sensor de presion', 950, 'hPa');
 --
 -- Indexes for dumped tables
 --
@@ -62,6 +73,9 @@ INSERT INTO `Devices` (`id`, `name`, `description`, `state`, `type`) VALUES
 ALTER TABLE `Devices`
   ADD PRIMARY KEY (`id`);
 
+ALTER TABLE `Sensors`
+  ADD PRIMARY KEY (`id`);
+
 --
 -- AUTO_INCREMENT for dumped tables
 --
@@ -70,6 +84,10 @@ ALTER TABLE `Devices`
 -- AUTO_INCREMENT for table `Devices`
 --
 ALTER TABLE `Devices`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+COMMIT;
+
+ALTER TABLE `Sensors`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 COMMIT;
 

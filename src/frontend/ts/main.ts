@@ -23,10 +23,6 @@ class Main implements EventListenerObject{
                     console.log(xmlRequest.responseText, xmlRequest.readyState);    
                     let respuesta = xmlRequest.responseText;
                     let datos:Array<Device> = JSON.parse(respuesta);
-
-                    //let datitos:Array<Sensor> = JSON.parse(respuesta);
-
-                    //console.log(datos[].description);
                     
                     let ul = document.getElementById("listaDisp"); 
 
@@ -43,7 +39,7 @@ class Main implements EventListenerObject{
                         <label>
                           Off
                           <input type="checkbox"`;
-                          itemList +=`nuevoAtt="${d.id}" id="cb_${d.id}"`
+                          itemList +=`id="cb_${d.id}"`
                         if (d.state) {
                             itemList+= ` checked `
                         }
@@ -53,8 +49,20 @@ class Main implements EventListenerObject{
                           On
                         </label>
                       </div>
-                      <button id="btnEdit" class="waves-effect waves-light btn modal-trigger"><i class="large material-icons">create</i></button>
-                      <button id="btnDelete" class="waves-effect waves-light btn modal-trigger"><i class="large material-icons">delete</i></button>
+                        
+                      <div>
+                      <button class="waves-effect waves-light btn ">
+                      <i class="large material-icons"`;
+                      itemList +=` id="edit_${d.id}"`
+                      itemList+= `>create</i></button>
+
+
+                      <button class="waves-effect waves-light btn ">                      
+                      <i class="large material-icons"`;
+                      itemList +=` id="del_${d.id}"`
+                      itemList+= `>delete</i></button>
+                      </div>
+
                         </a>
                       </li>`
                        
@@ -63,8 +71,14 @@ class Main implements EventListenerObject{
                     }
                     for (let d of datos) {
                         let checkbox = document.getElementById("cb_" + d.id);
+                        checkbox.addEventListener("click", this);                        
+                        
+                        let botonEdit = document.getElementById("edit_" + d.id);
+                        botonEdit.addEventListener("click", this);
 
-                        checkbox.addEventListener("click", this);
+                        let botonDel = document.getElementById("del_" + d.id);
+                        botonDel.addEventListener("click", this);
+
                     }
 
                 }else{
@@ -83,14 +97,14 @@ class Main implements EventListenerObject{
         xmlRequest.onreadystatechange = () => {
             if (xmlRequest.readyState == 4) {
                 if (xmlRequest.status == 200) {
-                    console.log("llego resputa",xmlRequest.responseText);        
+                    console.log("llego respuesta: ",xmlRequest.responseText);        
                 } else {
                     alert("Salio mal la consulta");
                 }
             }
         }
                
-        xmlRequest.open("POST", "http://localhost:8000/device", true)
+        xmlRequest.open("POST", "http://localhost:8000/deviceEdit", true)
         xmlRequest.setRequestHeader("Content-Type", "application/json");
         let s = {
             id: id,
@@ -98,9 +112,37 @@ class Main implements EventListenerObject{
         xmlRequest.send(JSON.stringify(s));
     }
 
+    private cargarDevice() {
+        let name =<HTMLInputElement> document.getElementById("dev_name");
+        let descript = <HTMLInputElement> document.getElementById("dev_descript");         
+
+        let xmlRequest = new XMLHttpRequest();
+
+        xmlRequest.onreadystatechange = () => {
+            if (xmlRequest.readyState == 4) {
+                if (xmlRequest.status == 200) {
+                    console.log("llego respuesta: ",xmlRequest.responseText);        
+                } else {
+                    alert("Salio mal la consulta");
+                }
+            }
+        }
+               
+        xmlRequest.open("POST", "http://localhost:8000/deviceAdd", true)
+        xmlRequest.setRequestHeader("Content-Type", "application/json");
+        let s = {
+            name: name.value,
+            descript: descript.value  };
+        xmlRequest.send(JSON.stringify(s));  
+    }
+
+
     private cargarUsuario(): void{
         let iNombre =<HTMLInputElement> document.getElementById("iNombre");
         let iPassword = <HTMLInputElement>document.getElementById("iPassword");
+
+        console.log(iNombre,iPassword);  
+
         let pInfo = document.getElementById("pInfo");
         if (iNombre.value.length > 3 && iPassword.value.length > 3) {
             let usuari1: Usuario = new Usuario(iNombre.value, "user", iPassword.value,23);
@@ -116,25 +158,49 @@ class Main implements EventListenerObject{
             pInfo.innerHTML = "Usuario o contraseña incorrecta!";
             pInfo.className ="textoError";
         }
-        
-        
+                
     }
+
+
+
+
+
 
     handleEvent(object: Event): void {
         let elemento = <HTMLElement>object.target;
+
+        //console.log(elemento);
         
+        if (elemento.id.startsWith("edit_")){
+            let id = elemento.id.substring(5,elemento.id.length);
+            console.log("edit",id);
+
+
+        }   else if (elemento.id.startsWith("del_")){
+            let id = elemento.id.substring(4,elemento.id.length);
+            console.log("del",id);
+
+
+        }
+         
+
+
+
         
         if ("btnListar" == elemento.id) {
             this.buscarDevices();   
         } else if ("btnGuardar" == elemento.id) {
+            console.log("Guardar usuario");
             this.cargarUsuario();
-        } else if ("dev_type" == elemento.id) {
+        } else if ("btn_create" == elemento.id) {
+            console.log("Crear disp");            
             //this.cargarUsuario();
-            console.log("cambio el select");
+            this.cargarDevice();
+            //console.log("cambio el select");
         } else if (elemento.id.startsWith("cb_")) {
             let checkbox = <HTMLInputElement>elemento;
-            console.log(checkbox.getAttribute("nuevoAtt"),checkbox.checked, elemento.id.substring(3, elemento.id.length));            
-            this.ejecutarPost(parseInt(checkbox.getAttribute("nuevoAtt")),checkbox.checked);
+            console.log(elemento.id.substring(3, elemento.id.length), checkbox.checked);            
+            this.ejecutarPost(parseInt(elemento.id.substring(3, elemento.id.length)),checkbox.checked);
         }
 
     }
@@ -156,6 +222,9 @@ window.addEventListener("load", () => {
 
     let botonGuardar = document.getElementById("btnGuardar");
     botonGuardar.addEventListener("click",main1);
+
+    let botonCrear = document.getElementById("btn_create");
+    botonCrear.addEventListener("click",main1);
 
     //var DeviceType = document.getElementById("dev_type");
     //DeviceType.addEventListener("change",main1);
