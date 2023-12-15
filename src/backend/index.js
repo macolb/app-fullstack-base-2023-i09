@@ -68,49 +68,45 @@ app.get('/devices/', function(req, res, next) {
             console.log("err",err);
             res.status(409).send(err);
         }
+    });    
+
+});
+
+/*
+app.get('/devicetoEditar', function(req, res, next) {
+
+    console.log("Llego el post",
+    "SELECT * FROM Devices WHERE id = "+req.body.id);
+
+    console.log(req.body);
+
+    utils.query("SELECT * FROM Devices WHERE id = 3",(err,rsp,fields)=>{
+        if(err==null){
+            
+            console.log("rsp",rsp);
+            res.status(200).send(JSON.stringify(rsp));
+        }else{
+            console.log("err",err);
+            res.status(409).send(err);
+        }
+    });    
+});
+*/
+
+app.get("/devicetoEditar/:id",(req,res,next)=>{
+    console.log("id",req.params.id)
+    //console.log("algo",req.params.algo)
+    utils.query("SELECT * FROM Devices WHERE id ="+req.params.id,(err,rsp,fields)=>{
+        if(err==null){
+            
+            console.log("rsp",rsp);
+            res.status(200).send(JSON.stringify(rsp));
+        }else{
+            console.log("err",err);
+            res.status(409).send(err);
+        }
     });
     
-    
-    
-    /*devices = [
-        { 
-            'id': 1, 
-            'name': 'Luces balcon', 
-            'description': 'Luces tipo guirnalda', 
-            'state': 1, 
-            'type': 1, 
-        },
-        { 
-            'id': 2, 
-            'name': 'Bomba riego', 
-            'description': 'Bomba de riego automatica', 
-            'state': 0, 
-            'type': 2, 
-        },
-        { 
-            'id': 3, 
-            'name': 'Pulverizador', 
-            'description': 'Plantas de poco riego', 
-            'state': 1, 
-            'type': 3, 
-        },
-        { 
-            'id': 4, 
-            'name': 'Parlante', 
-            'description': 'Rele en enchufe', 
-            'state': 0, 
-            'type': 4, 
-        },
-        { 
-            'id': 5, 
-            'name': 'TV', 
-            'description': 'TV led Habitacion', 
-            'state': 1, 
-            'type': 5, 
-        }
-    ]
-    res.send(JSON.stringify(devices)).status(200);*/
-
 });
 
 
@@ -135,7 +131,6 @@ app.post("/deviceEdit",(req,res,next)=>{
     
 });
 
-//INSERT INTO `Devices`(`name`, `description`, `state`, `type`) VALUES ('Nuevo','para prueba','0','1');
 
 app.post("/deviceAdd",(req,res,next)=>{
     console.log("Llego el post",
@@ -156,22 +151,47 @@ app.post("/deviceAdd",(req,res,next)=>{
     
 });
 
-/*
+
+
 app.post("/deviceDel",(req,res,next)=>{
     console.log("Llego el post",
-    "DELETE Devices WHERE id = "+req.body.id);
-    if(req.body.name==""){
-        res.status(409).send("no tengo nada que hacer");
-    }else{
-        res.status(200).send("se elimino el dispositivo con id: "+req.body.id);
-    }
+    "DELETE FROM Devices WHERE id = "+req.body.id);
+
+    utils.query("DELETE FROM Devices WHERE id = "+req.body.id,(err,rsp,fields)=>{
+        if(err==null){            
+            console.log("rsp",rsp);
+            //res.status(200).send(JSON.stringify(rsp));
+            res.status(200).send("se elimino el dispositivo");
+        }else{
+            console.log("err",err);
+            //res.status(409).send(err);
+            res.status(409).send("Algo fallo!");
+        }
+    });
     
 });
-*/
+
+app.post("/deviceEditar",(req,res,next)=>{
+    console.log("Llego el post",
+    "UPDATE Devices SET name = '"+req.body.name+"', description = '"+req.body.descript+"' WHERE id = "+req.body.id);
+
+    utils.query("UPDATE Devices SET name = '"+req.body.name+"', description = '"+req.body.descript+"' WHERE id = "+req.body.id,(err,rsp,fields)=>{
+        if(err==null){            
+            console.log("rsp",rsp);
+            //res.status(200).send(JSON.stringify(rsp));
+            res.status(200).send("se elimino el dispositivo");
+        }else{
+            console.log("err",err);
+            //res.status(409).send(err);
+            res.status(409).send("Algo fallo!");
+        }
+    });
+});
 
 
 app.listen(PORT, function(req, res) {
     console.log("NodeJS API running correctly");
+    
 });
 
 //=======[ End of file ]=======================================================

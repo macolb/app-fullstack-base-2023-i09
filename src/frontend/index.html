@@ -31,36 +31,22 @@
 <main>
     <div class="container">
         <div class="row">  
-            <!--                 
-            <div id="lista" miAtt="true" class="col s12 m6 l6">
-                <ul class="collection" id="listaDisp">
-                           
-                          
-                </ul>
-            </div>
-            -->
-            <!-- Modal Trigger -->
 
-            <!--
-            <p>
-                <label>
-                    <input type="checkbox" id="cb"  />
-                    <span>Prender</span>
-                </label>
-            </p>
-            -->
         </div>
-            <!--<a class="waves-effect waves-light btn modal-trigger" href="#modal1">Iniciar Sesion</a>-->
 
-                    <!-- Modal Usuario -->
+            <!-- Start Modal definitions -->
+
+            <!-- Modal Usuario -->
             <div id="modal1" class="modal" >
                 <div class="modal-content">
                     <div class="col s12 m6 l12">
-                        <h2>Cargar usuario</h2>
+                        <div class="col s6 m6 l6" style="text-align: center;">
+                            <h2>Cargar usuario</h2>
+                        </div>
 
                         <div class="input-field">                       
-                        <input id="iNombre" type="text" value="" placeholder="user" />
-                        <label for="iNombre">Nombre de usuario</label>                        
+                            <input id="iNombre" type="text" value="" placeholder="user" />
+                            <label for="iNombre">Nombre de usuario</label>                        
                         </div> 
 
                         <div class="input-field">
@@ -84,112 +70,100 @@
                 </div>
             </div>
 
-                    <!-- Modal Dispositivo -->
-                    <div id="modal2" class="modal" >
-                        <div class="modal-content">
-                            <div class="col s12 m6 l12">
-
-                                <h3>Nuevo Dispositivo</h3>
-<!--
-                            <div class="input-field col s12">
-                                    <select id="dev_type">
-                                      <option value="" disabled selected>Choose Device</option>
-                                      <option value="1">Actuador</option>
-                                      <option value="2">Sensor</option>
-                                    </select>
-            
-                                  </div>
-                            </div>
-        
-                                <div class="input-field">                       
-                                <input id="dev_id" type="text" value="" />
-                                <label for="dev_id">ID</label>                        
-                                </div> 
--->        
-                                <div class="input-field">
-                                    <input id="dev_name" type="text">
-                                    <label for="dev_name">Name</label>
-                                </div>
-
-                                <div class="input-field">
-                                    <input id="dev_descript" type="text">
-                                    <label for="dev_descript">Description</label>
-                                </div>
-<!--                    
-                                <p>
-                                    <label>
-                                        <input type="checkbox"  />
-                                        <span>Start device with state OFF</span>
-                                    </label>
-                                </p>
--->         
-                                <p id="pInfo"></p>
-                                <div class="col s6 m6 l6" style="text-align: center;">
-                                    <button id="btn_create" class="modal-close btn">Crear</button>
-                                </div>
-                            </div>
+            <!-- Modal Dispositivo -->
+            <div id="modal2" class="modal" >
+                <div class="modal-content">
+                    <div class="col s12 m6 l12">
+                        <div class="col s6 m6 l6" style="text-align: center;">
+                            <h3>Nuevo Dispositivo</h3>
                         </div>
-                    </div>            
-       
-                <!--
-                <div class="input-field col s12">
-                        <select>
-                          <option value="" disabled selected>Choose your option</option>
-                          <option value="1">Option 1</option>
-                          <option value="2">Option 2</option>
-                          <option value="3">Option 3</option>
-                        </select>
 
-                      </div>
-                </div>
-                -->
+                        <div class="input-field">
+                            <input id="dev_name" type="text">
+                            <label for="dev_name">Name</label>
+                        </div>
 
-                <!--
-                <br/>
-                <h3>Smart Home Web Client!</h3>
-                <br/>
-                <div class="row">
-                    
-                    <div class="input-field col s12 m12 l12 xl12">
-                        <textarea id="textarea_1" class="materialize-textarea" style="height: 150px;" readonly></textarea>
+                        <div class="input-field">
+                            <input id="dev_descript" type="text">
+                            <label for="dev_descript">Description</label>
+                        </div>
+        
+                        <p id="pInfo"></p>
+
+                        <div class="col s6 m6 l6" style="text-align: center;">
+                            <button id="btn_create" class="modal-close btn">Crear</button>
+                        </div>
                     </div>
-                    -->
+                </div>
+            </div>            
+       
+            <!-- Modal Editar dispositivo -->
+            <div id="modal3" class="modal" >
+                <div class="modal-content">
+                    <div class="col s12 m6 l12">
+                        <div class="col s6 m6 l6" style="text-align: center;">
+                            <h3>Editar Dispositivo</h3>
+                        </div>
 
-                    <!--
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi, alias, pariatur tempore quas at iusto fugit nostrum consequuntur, quidem deleniti ad excepturi non adipisci voluptas eos nisi commodi necessitatibus dolorum.</p>
-                    -->
+                        <div class="input-field">
+                            <input disabled id="id_edit" type="text" class="validate">
+                            <span class="helper-text">ID Device</span>
+                        </div>
+
+                        <div class="input-field">
+                            <input id="name_edit" type="text">
+                            <span class="helper-text">Name Device</span>
+                        </div>
+
+                        <div class="input-field">
+                            <input id="descript_edit" type="text">
+                            <span class="helper-text">Description Device</span>
+                        </div>
+        
+                        <p id="pInfo"></p>
+
+                        <div class="col s6 m6 l6" style="text-align: center;">
+                            <button id="btn_edit" class="modal-close btn">Modificar</button>
+                            <button id="btn_cancel" class="modal-close btn">Cancelar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>                     
+
         <div class="container">
             <div class="col s4 m2 l4 xl4" style="text-align: center;" >
-                <button class="btn waves-effect waves-light button-view" id="btnListar" name="hello_button" >Listar Dispositivos</button>
+                <button class="btn waves-effect waves-light button-view" id="btnListar" name="hello_button" >Actualizar Lista</button>
             </div>
         </div>
-    
-    </div>	
+
+    </div>	   <!-- End of container --> 
 
     <div class="container">
-    <div id="lista" miAtt="true" class="col s12 m6 l6">
-        <ul class="collection" id="listaDisp">
+        <div id="lista" miAtt="true" class="col s12 m6 l6">
+            <ul class="collection" id="listaDisp">
                    
-        </ul>
-    </div>
-    </div>
+            </ul>
+        </div>
+    </div>      <!-- End of Device List --> 
 
     <div class="container" style="text-align: center; margin-top:10px; margin-bottom:10px;">
         <a id="btnDevice" class="btn-floating btn-large waves-effect waves-light modal-trigger" href="#modal2"><i class="material-icons">add</i></a>
     </div>
-
 
 </main>
 
 
 <!-- Page Footer -->
 <footer class="page-footer" style="background-color:#124580">
+
     <div class="container">
         <div class="row">
+
             <div class="col l6 s6" style="background-color:#124580">
                 <h5 class="white-text">Smart Home</h5>
-                <p class="grey-text text-lighten-4">Copyright ### - 2023</p>
+                <p class="grey-text text-lighten-4">CEIoT / DaW - 2023</p>
             </div>
+
             <div class="col l6 s6" style="background-color:#124580">
                 <h5 class="white-text right-align">Contact</h5>
                     <p class="white-text right-align">
@@ -200,6 +174,7 @@
             </div>
         </div>
     </div>
+    
 </footer>
 
 <!--JavaScript at end of body for optimized loading-->
