@@ -11,7 +11,7 @@ class Main implements EventListenerObject{
         }
     }
 
-    private buscarDevices() {                   //Funcion para buscar los dispositivos en la base de datos
+    public buscarDevices() {                   //Funcion para buscar los dispositivos en la base de datos
         
         let xmlRequest = new XMLHttpRequest();
         
@@ -67,7 +67,8 @@ class Main implements EventListenerObject{
                         ul.innerHTML += itemList;
 
                     }
-                    for (let d of datos) {
+                    for (let d of datos) {          //Adjunto los eventos a los botones
+
                         let checkbox = document.getElementById("cb_" + d.id);
                         checkbox.addEventListener("click", this);                        
                         
@@ -89,7 +90,7 @@ class Main implements EventListenerObject{
         xmlRequest.send();
     }
 
-    private ejecutarPost(id:number,state:boolean) {
+    private ChangeStateDevice(id:number,state:boolean) {    //Funcion para cambiar el estado de un dispositivo
         let xmlRequest = new XMLHttpRequest();
 
         xmlRequest.onreadystatechange = () => {
@@ -97,12 +98,12 @@ class Main implements EventListenerObject{
                 if (xmlRequest.status == 200) {
                     console.log("llego respuesta: ",xmlRequest.responseText);        
                 } else {
-                    alert("Salio mal la consulta");
+                    alert("Salio mal la consulta!");
                 }
             }
         }
                
-        xmlRequest.open("POST", "http://localhost:8000/deviceEdit", true)
+        xmlRequest.open("POST", "http://localhost:8000/DeviceChangeState", true)
         xmlRequest.setRequestHeader("Content-Type", "application/json");
         let s = {
             id: id,
@@ -110,7 +111,7 @@ class Main implements EventListenerObject{
         xmlRequest.send(JSON.stringify(s));
     }
 
-    private cargarDevice() {
+    private CrearDevice() {                                 //Funcion para crear un dispositivo
 
         let name =<HTMLInputElement> document.getElementById("dev_name");
         let descript = <HTMLInputElement> document.getElementById("dev_descript");         
@@ -120,10 +121,9 @@ class Main implements EventListenerObject{
         xmlRequest.onreadystatechange = () => {
             if (xmlRequest.readyState == 4) {
                 if (xmlRequest.status == 200) {
-                    console.log("llego respuesta: ",xmlRequest.responseText);  
-                    //alert("Se cargo el dispositivo!");      
+                    console.log("llego respuesta: ",xmlRequest.responseText);      
                 } else {
-                    alert("Salio mal la consulta");
+                    alert("Salio mal la consulta!");
                 }
             }
         }
@@ -256,58 +256,47 @@ class Main implements EventListenerObject{
         }
     }
 
-
-
-
-
+    //Eventos
 
     handleEvent(object: Event): void {
         let elemento = <HTMLElement>object.target;
-
-        //console.log(elemento);
         
-        if (elemento.id.startsWith("edit_")){
+        //Funciones de botones en lista de dispositivos
+
+        if (elemento.id.startsWith("edit_")){                       
             let id = elemento.id.substring(5,elemento.id.length);
-            console.log("edit",id);
             this.cargarDeviceEdit(parseInt(id));          
 
-        }   else if (elemento.id.startsWith("del_")){
+        } else if (elemento.id.startsWith("del_")){                 
             let id = elemento.id.substring(4,elemento.id.length);
-            console.log("del",id);
             this.deleteDevice(parseInt(id));
+            this.buscarDevices();           //Refresco la lista de dispositivos
 
-            console.log("Actualizo lista");
-            this.buscarDevices();
-        }
-         
-
-        if ("btnListar" == elemento.id) {
-            this.buscarDevices();   
-        } else if ("btn_edit" == elemento.id) {
-            console.log("Guardar modificacion de Device");
-            this.editarDevice();
-
-            console.log("Actualizo lista");
-            this.buscarDevices();
-
-        } else if ("btnGuardar" == elemento.id) {
-            console.log("Guardar usuario");
-            this.cargarUsuario();
-        } else if ("btn_create" == elemento.id) {
-
-            console.log("Crear disp");            
-            this.cargarDevice();
-            console.log("Actualizo lista");
-            this.buscarDevices();
-
-        } else if (elemento.id.startsWith("cb_")) {
+        } else if (elemento.id.startsWith("cb_")) {                
             let checkbox = <HTMLInputElement>elemento;
             console.log(elemento.id.substring(3, elemento.id.length), checkbox.checked);            
-            this.ejecutarPost(parseInt(elemento.id.substring(3, elemento.id.length)),checkbox.checked);
+            this.ChangeStateDevice(parseInt(elemento.id.substring(3, elemento.id.length)),checkbox.checked);
+
         }
+         
+        //Funciones de botones en modals
 
+          else if ("btnListar" == elemento.id) {
+            this.buscarDevices();  
+
+        } else if ("btn_edit" == elemento.id) {
+            this.editarDevice();
+            this.buscarDevices();           //Refresco la lista de dispositivos
+
+        } else if ("btnGuardar" == elemento.id) {
+            this.cargarUsuario();
+
+        } else if ("btn_create" == elemento.id) {            
+            this.CrearDevice();
+            this.buscarDevices();           //Refresco la lista de dispositivos
+
+        }
     }
-
 }
 
     
@@ -333,5 +322,9 @@ window.addEventListener("load", () => {
     let botonEditar = document.getElementById("btn_edit");
     botonEditar.addEventListener("click",main1);
 
+    main1.buscarDevices();           //Refresco la lista de dispositivos
 });
+
+
+
 

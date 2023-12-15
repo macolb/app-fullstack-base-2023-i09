@@ -112,9 +112,9 @@ app.get("/devicetoEditar/:id",(req,res,next)=>{
 
 //=====================POST Functions============================
 
-app.post("/deviceEdit",(req,res,next)=>{
-    console.log("Llego el post",
-    "UPDATE Devices SET state = "+req.body.state+" WHERE id = "+req.body.id);
+app.post("/DeviceChangeState",(req,res,next)=>{
+
+    console.log("Llego el post", "UPDATE Devices SET state = "+req.body.state+" WHERE id = "+req.body.id);
 
     utils.query("UPDATE Devices SET state = "+req.body.state+" WHERE id = "+req.body.id,(err,rsp,fields)=>{
         if(err==null){
@@ -191,7 +191,7 @@ app.post("/deviceEditar",(req,res,next)=>{
 
 app.listen(PORT, function(req, res) {
     console.log("NodeJS API running correctly");
-    
+
 });
 
 //=======[ End of file ]=======================================================

@@ -63,7 +63,7 @@ div>div.col{
     margin: 5px;
 }
 
-
-
-
-
+.modal{
+    border-radius: 10px;
+    width: 30%;
+}
