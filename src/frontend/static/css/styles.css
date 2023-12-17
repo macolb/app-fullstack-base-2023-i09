@@ -15,10 +15,6 @@ div>div.col{
 
 }
 
-#btnListar{
-    width: 30%;
-}
-
 .textoError{
     width: 50%;
     margin: auto;
@@ -65,5 +61,12 @@ div>div.col{
 
 .modal{
     border-radius: 10px;
-    width: 30%;
+    width: 40%;
 }
+
+/*
+.input-field input[type=number] .secondary-content {
+    height: 20px;
+    width: 50px;
+}
+*/

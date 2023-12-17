@@ -2,15 +2,10 @@ class Device{
   id: number;
   name: string;
   description: string;
+  type: string;
+  lastupdate: Date;
+  proportional: number;    
   state: boolean;
-  lastchange: Date;
-}
-
-class Sensor{
-  id: number;
-  name: string;
-  description: string;
-  measure: number;
-  unit: string;
-  lastupdate: Date;  
+  measure: number;    //In case of Device type = "sensor" 
+  unit: string;       //In case of Device type = "sensor" 
 }

@@ -34,23 +34,6 @@ app.get("/otraCosa",(req,res,next)=>{
     
 });
 
-/*
-app.get("/otraCosa/:id/:algo",(req,res,next)=>{
-    console.log("id",req.params.id)
-    console.log("algo",req.params.algo)
-    utils.query("select * from Devices where id="+req.params.id,(err,rsp,fields)=>{
-        if(err==null){
-            
-            console.log("rsp",rsp);
-            res.status(200).send(JSON.stringify(rsp));
-        }else{
-            console.log("err",err);
-            res.status(409).send(err);
-        }
-    });
-    
-});
-*/
 
 app.get("/users",(req,res,next)=>{
     res.send("Listo");
@@ -72,30 +55,8 @@ app.get('/devices/', function(req, res, next) {
 
 });
 
-/*
-app.get('/devicetoEditar', function(req, res, next) {
-
-    console.log("Llego el post",
-    "SELECT * FROM Devices WHERE id = "+req.body.id);
-
-    console.log(req.body);
-
-    utils.query("SELECT * FROM Devices WHERE id = 3",(err,rsp,fields)=>{
-        if(err==null){
-            
-            console.log("rsp",rsp);
-            res.status(200).send(JSON.stringify(rsp));
-        }else{
-            console.log("err",err);
-            res.status(409).send(err);
-        }
-    });    
-});
-*/
-
 app.get("/devicetoEditar/:id",(req,res,next)=>{
-    console.log("id",req.params.id)
-    //console.log("algo",req.params.algo)
+
     utils.query("SELECT * FROM Devices WHERE id ="+req.params.id,(err,rsp,fields)=>{
         if(err==null){
             
@@ -114,17 +75,29 @@ app.get("/devicetoEditar/:id",(req,res,next)=>{
 
 app.post("/DeviceChangeState",(req,res,next)=>{
 
-    console.log("Llego el post", "UPDATE Devices SET state = "+req.body.state+" WHERE id = "+req.body.id);
-
     utils.query("UPDATE Devices SET state = "+req.body.state+" WHERE id = "+req.body.id,(err,rsp,fields)=>{
         if(err==null){
             
             console.log("rsp",rsp);
-            //res.status(200).send(JSON.stringify(rsp));
             res.status(200).send("se cambio el estado del dispositivo");
         }else{
             console.log("err",err);
-            //res.status(409).send(err);
+            res.status(409).send("Algo fallo!");
+        }
+    });    
+    
+});
+
+app.post("/DeviceChangeProp",(req,res,next)=>{
+
+    console.log("req",req.body.prop);
+    utils.query("UPDATE Devices SET proportional = "+req.body.prop+" WHERE id = "+req.body.id,(err,rsp,fields)=>{
+        if(err==null){
+            
+            console.log("rsp",rsp);
+            res.status(200).send("se cambio el estado del dispositivo");
+        }else{
+            console.log("err",err);
             res.status(409).send("Algo fallo!");
         }
     });    
@@ -133,38 +106,34 @@ app.post("/DeviceChangeState",(req,res,next)=>{
 
 
 app.post("/deviceAdd",(req,res,next)=>{
-    console.log("Llego el post",
-    "INSERT INTO Devices (name, description, state, type) VALUES ('"+req.body.name+"','"+req.body.descript+"', '0','3')");
 
-    utils.query("INSERT INTO Devices (name, description, state, type) VALUES ('"+req.body.name+"','"+req.body.descript+"', '0','3')",(err,rsp,fields)=>{
+    if(req.body.type==1 || req.body.type==2){       //Solo si es Sensor le mando la unidad
+    var unit = "";
+    }else{
+    var unit = req.body.unit;
+    }
+
+    utils.query("INSERT INTO Devices (name, description, state, proportional, type, unit) VALUES ('"+req.body.name+"','"+req.body.descript+"', '0', '0','"+req.body.type+"', '"+unit+"')",(err,rsp,fields)=>{
         if(err==null){
             
             console.log("rsp",rsp);
-            //res.status(200).send(JSON.stringify(rsp));
             res.status(200).send("se agrego el dispositivo");
         }else{
             console.log("err",err);
-            //res.status(409).send(err);
             res.status(409).send("Algo fallo!");
         }
     });
     
 });
 
-
-
 app.post("/deviceDel",(req,res,next)=>{
-    console.log("Llego el post",
-    "DELETE FROM Devices WHERE id = "+req.body.id);
 
     utils.query("DELETE FROM Devices WHERE id = "+req.body.id,(err,rsp,fields)=>{
         if(err==null){            
             console.log("rsp",rsp);
-            //res.status(200).send(JSON.stringify(rsp));
             res.status(200).send("se elimino el dispositivo");
         }else{
             console.log("err",err);
-            //res.status(409).send(err);
             res.status(409).send("Algo fallo!");
         }
     });
@@ -172,17 +141,13 @@ app.post("/deviceDel",(req,res,next)=>{
 });
 
 app.post("/deviceEditar",(req,res,next)=>{
-    console.log("Llego el post",
-    "UPDATE Devices SET name = '"+req.body.name+"', description = '"+req.body.descript+"' WHERE id = "+req.body.id);
 
     utils.query("UPDATE Devices SET name = '"+req.body.name+"', description = '"+req.body.descript+"' WHERE id = "+req.body.id,(err,rsp,fields)=>{
         if(err==null){            
             console.log("rsp",rsp);
-            //res.status(200).send(JSON.stringify(rsp));
             res.status(200).send("se elimino el dispositivo");
         }else{
             console.log("err",err);
-            //res.status(409).send(err);
             res.status(409).send("Algo fallo!");
         }
     });

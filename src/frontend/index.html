@@ -79,6 +79,20 @@
                         </div>
 
                         <div class="input-field">
+                            <input hidden disabled id="dev_type" type="text" class="validate">
+                        </div>
+
+                        <div class="input-field col s12 m6">
+                            <select class="icons" id="DeviceSelect">
+                              <option disabled selected>Select Device Type</option>
+                              <option value="1" data-icon="./static/images/power.png">ON/OFF</option>
+                              <option value="2" data-icon="./static/images/Proportional.png">Proportional</option>
+                              <option value="3" data-icon="./static/images/Monitoring.png">Monitoring</option>
+                            </select>
+                            <!--<label>Select Device Type</label>-->
+                          </div>         
+
+                        <div class="input-field">
                             <input id="dev_name" type="text">
                             <label for="dev_name">Name</label>
                         </div>
@@ -87,11 +101,17 @@
                             <input id="dev_descript" type="text">
                             <label for="dev_descript">Description</label>
                         </div>
-        
+
+                        <div class="input-field">
+                            <input hidden type="text" id="dev_unit" placeholder="Unit">
+                            <!--<label hidden for="dev_unit_label">Unit</label>-->
+                        </div>                        
+
                         <p id="pInfo"></p>
 
                         <div class="col s6 m6 l6" style="text-align: center;">
                             <button id="btn_create" class="modal-close btn">Crear</button>
+                            <button id="btn_cancel2" class="modal-close btn">Cancelar</button>                            
                         </div>
                     </div>
                 </div>
@@ -106,8 +126,7 @@
                         </div>
 
                         <div class="input-field">
-                            <input disabled id="id_edit" type="text" class="validate">
-                            <span class="helper-text">ID Device</span>
+                            <input hidden disabled id="id_edit" type="text" class="validate">
                         </div>
 
                         <div class="input-field">
@@ -128,16 +147,17 @@
                         </div>
                     </div>
                 </div>
-            </div>                     
-
-           
-        <div class="container">
-            <div class="col s4 m2 l4 xl4" style="text-align: center;" >
-                <button class="btn waves-effect waves-light button-view" id="btnListar" name="hello_button" >Actualizar Lista</button> 
-            </div>
-        </div>
+            </div> 
+                
+            <div class="container">
+                <div class="col s4 m2 l4 xl4" style="text-align: center;" >
+                    <button class="btn waves-effect waves-light button-view" id="btnListar" name="hello_button" >Actualizar</button> 
+                </div>
+            </div>    
+       
 
     </div>	   <!-- End of container --> 
+
 
     <div class="container">
         <div id="lista" miAtt="true" class="col s12 m6 l6">

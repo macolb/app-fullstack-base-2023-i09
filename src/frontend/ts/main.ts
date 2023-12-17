@@ -24,17 +24,45 @@ class Main implements EventListenerObject{
                     let datos:Array<Device> = JSON.parse(respuesta);
                     
                     let ul = document.getElementById("listaDisp"); 
+ 
+                    ul.innerHTML = '';      //Limpio la lista antes de cargar nuevamente
 
                     for (let d of datos) {
                         let itemList =
-                        ` <li class="collection-item avatar" style="height: 100px">
-                        <img src="./static/images/lightbulb.png" alt="" class="circle">
-                        <span class="title">${d.name}</span>
+                        ` <li class="collection-item avatar" style="height: 100px">`
+                        
+                        if(d.type == "1"){          //Agrego el icono correspondiente a cada tipo de dispositivo
+                            itemList +=
+                            `<img src="./static/images/power.png" alt="" class="circle">`
+                        } else if(d.type == "2"){
+                            itemList +=
+                            `<img src="./static/images/Proportional.png" alt="" class="circle">`
+                        }
+                        else if(d.type == "3"){
+                            itemList +=
+                            `<img src="./static/images/Monitoring.png" alt="" class="circle">`
+                        }
+
+
+                        itemList +=                        
+                        `<span class="title">${d.name}</span>
                         <p>
                          ${d.description}
                         </p>
-                        <a href="#!" class="secondary-content">
-                        <div class="switch">
+                        <label font-size:10px;>
+                        Init Date:
+                        </label>                        
+                        <p>
+                         ${d.lastupdate}
+                        </p>                        
+                        <a href="#!" class="secondary-content">`
+
+                        
+                        if(d.type == "1"){
+                            //Dispositivos tipo ON/OFF
+                            
+                        itemList +=
+                        `<div class="switch">
                         <label>
                           Off
                           <input type="checkbox"`;
@@ -47,9 +75,31 @@ class Main implements EventListenerObject{
                           <span class="lever"></span>
                           On
                         </label>
-                      </div>
+                      </div>`
                         
-                      <div>
+                    }else if(d.type == "2"){
+                            //Dispositivos tipo Proporcional
+
+                        itemList +=
+                        `<div class="input-field" style="margin-top:0px; margin-bottom:0px; text-align: center;">
+                            <input type="number" style="text-align: center; height: 20px; width: 40px; padding: 1px 1px 1px 1px;" min="1" max="10"`;
+                            itemList+= `value="${d.proportional}" id="range_${d.id}">
+                        </div>`
+                    }else if(d.type == "3"){
+                            //Dispositivos tipo Sensor
+                        console.log(d.measure);
+                    itemList +=
+                    `<div class="input-field" style="margin-top:0px; margin-bottom:0px; text-align: center;">
+                    <input disabled type="number" style="text-align: center; height: 20px; width: 40px; padding: 1px 1px 1px 1px;" min="1" max="10"`;
+                    itemList+= `value="${d.measure}" id="measure_${d.id}">
+                    <div style="display: inline-block; vertical-align: middle; margin-left: 5px;">
+                    <label for="measure_${d.id}" style="margin-bottom: 0;font-size:15px;">${d.unit}</label>
+                  </div>
+                </div>`
+                }
+                    
+                    itemList +=
+                      `<div>
                       <button class="waves-effect waves-light btn ">
                       <i class="large material-icons modal-trigger" href="#modal3"`;
                       itemList +=` id="edit_${d.id}"`
@@ -69,8 +119,13 @@ class Main implements EventListenerObject{
                     }
                     for (let d of datos) {          //Adjunto los eventos a los botones
 
+                        if(d.type == "1"){
                         let checkbox = document.getElementById("cb_" + d.id);
-                        checkbox.addEventListener("click", this);                        
+                        checkbox.addEventListener("click", this);  
+                        } else if(d.type == "2"){
+                        let range = document.getElementById("range_" + d.id);
+                        range.addEventListener("change", this);
+                        }                      
                         
                         let botonEdit = document.getElementById("edit_" + d.id);
                         botonEdit.addEventListener("click", this);
@@ -111,10 +166,35 @@ class Main implements EventListenerObject{
         xmlRequest.send(JSON.stringify(s));
     }
 
+    private ChangePropDevice(id:number,prop:number) {    //Funcion para cambiar el estado de un dispositivo
+        let xmlRequest = new XMLHttpRequest();
+
+        xmlRequest.onreadystatechange = () => {
+            if (xmlRequest.readyState == 4) {
+                if (xmlRequest.status == 200) {
+                    console.log("llego respuesta: ",xmlRequest.responseText);        
+                } else {
+                    alert("Salio mal la consulta!");
+                }
+            }
+        }
+               
+        xmlRequest.open("POST", "http://localhost:8000/DeviceChangeProp", true)
+        xmlRequest.setRequestHeader("Content-Type", "application/json");
+        let s = {
+            id: id,
+            prop: prop   };
+        xmlRequest.send(JSON.stringify(s));
+    }
+
+
     private CrearDevice() {                                 //Funcion para crear un dispositivo
 
         let name =<HTMLInputElement> document.getElementById("dev_name");
-        let descript = <HTMLInputElement> document.getElementById("dev_descript");         
+        let descript = <HTMLInputElement> document.getElementById("dev_descript");
+        let type = <HTMLInputElement> document.getElementById("dev_type");
+
+        let unit = <HTMLInputElement> document.getElementById("dev_unit");
 
         let xmlRequest = new XMLHttpRequest();
 
@@ -132,7 +212,10 @@ class Main implements EventListenerObject{
         xmlRequest.setRequestHeader("Content-Type", "application/json");
         let s = {
             name: name.value,
-            descript: descript.value  };
+            descript: descript.value,  
+            type: type.value,    
+            unit: unit.value
+        };
         xmlRequest.send(JSON.stringify(s)); 
 
         name.value = "";        //limpio los campos
@@ -140,6 +223,7 @@ class Main implements EventListenerObject{
         
         let ul = document.getElementById("listaDisp"); 
         ul.innerHTML = '';      //Limpio la lista antes de cargar nuevamente
+        unit.style.display = 'none';
 
     }
 
@@ -256,6 +340,30 @@ class Main implements EventListenerObject{
         }
     }
 
+    private SelectDevice(): void{
+
+        let type = <HTMLInputElement> document.getElementById("dev_type");
+        var instance = M.FormSelect.getInstance(document.getElementById("DeviceSelect"));
+
+        let unit = <HTMLInputElement> document.getElementById("dev_unit");    
+        //let label = <HTMLInputElement> document.getElementById("dev_unit_label");      
+
+        var selectedOption = instance.input.value;
+
+        if(selectedOption == "ON/OFF"){
+            type.value = "1";            
+        } else if(selectedOption == "Proportional"){
+            type.value = "2";
+        } else if(selectedOption == "Monitoring"){
+            type.value = "3"; 
+
+            unit.style.display = 'block';
+            //label.style.display = 'block';
+
+        }    
+
+    }
+
     //Eventos
 
     handleEvent(object: Event): void {
@@ -296,6 +404,22 @@ class Main implements EventListenerObject{
             this.buscarDevices();           //Refresco la lista de dispositivos
 
         }
+
+        //Funciones de Crear Dispositivo
+
+        else if("DeviceSelect" == elemento.id){
+            this.SelectDevice();
+        }
+
+        //Funciones de Cambiar valor proporcional
+
+        else if (elemento.id.startsWith("range_")) {                
+            let range = <HTMLInputElement>elemento;
+            console.log(elemento.id.substring(6, elemento.id.length), range.value);            
+            this.ChangePropDevice(parseInt(elemento.id.substring(6, elemento.id.length)),parseInt(range.value));
+        }
+
+
     }
 }
 
@@ -308,7 +432,13 @@ window.addEventListener("load", () => {
     var elemsModal = document.querySelectorAll('.modal');
     var instances = M.Modal.init(elemsModal, "");
 
+    var dropdown = document.querySelectorAll('select');
+    var instances = M.FormSelect.init(dropdown, ""); 
+
     let main1: Main = new Main();
+
+    //let slider = document.getElementById('range');
+
 
     let boton = document.getElementById("btnListar");    
     boton.addEventListener("click", main1);   
@@ -321,6 +451,9 @@ window.addEventListener("load", () => {
 
     let botonEditar = document.getElementById("btn_edit");
     botonEditar.addEventListener("click",main1);
+
+    var SelectElem = document.getElementById("DeviceSelect");
+    SelectElem.addEventListener("change", main1); 
 
     main1.buscarDevices();           //Refresco la lista de dispositivos
 });
