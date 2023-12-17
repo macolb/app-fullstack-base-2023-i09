@@ -14,6 +14,7 @@ La aplicación IoT de base que viene con este proyecto se encarga de crear una t
 Realizando estas tareas vas a a tener una aplicación fullstack IoT del mundo real que utiliza tecnologías actuales en la que un backend es capaz de interactuar con una DB para cumplir con las peticiones de control que se le mandan desde el cliente web.
 
 Vas a tener la opción de crear tres tipos de dispositivos:
+
     - Dispositivo del tipo ON/OFF ---> Permiten el encendido y apagado del dispositivo. Su control es del tipo booleano.
     - Dispositivos del tipo Proporcional ---> Son dispositivos que su control es proporcional esto es, son acción es regulable y tiene un rango de funcionamiento entre 0 y 10.
     - Dispositivos del tipo Monitoreo ---> Estos son sensores que una vez dados de alta se van a comunicar con la base de datos para actualizar sus mediciones. Se tiene un campo mas de información que es para agregar la unidad de la mediciones.
