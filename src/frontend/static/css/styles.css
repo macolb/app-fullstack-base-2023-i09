@@ -10,9 +10,6 @@ main {
 }
 div>div.col{
     background-color: rgb(255, 255, 255);
-    /*border: 2px solid black;*/
-
-
 }
 
 .textoError{
@@ -64,9 +61,3 @@ div>div.col{
     width: 40%;
 }
 
-/*
-.input-field input[type=number] .secondary-content {
-    height: 20px;
-    width: 50px;
-}
-*/

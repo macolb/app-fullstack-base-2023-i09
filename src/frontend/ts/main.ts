@@ -233,8 +233,7 @@ class Main implements EventListenerObject{
         xmlRequest.onreadystatechange = () => {
             if (xmlRequest.readyState == 4) {
                 if (xmlRequest.status == 200) {
-                    console.log("llego respuesta: ",xmlRequest.responseText); 
-                    //alert("Se elimino el dispositivo!");        
+                    console.log("llego respuesta: ",xmlRequest.responseText);        
                 } else {
                     alert("Salio mal la consulta");
                 }
@@ -345,8 +344,7 @@ class Main implements EventListenerObject{
         let type = <HTMLInputElement> document.getElementById("dev_type");
         var instance = M.FormSelect.getInstance(document.getElementById("DeviceSelect"));
 
-        let unit = <HTMLInputElement> document.getElementById("dev_unit");    
-        //let label = <HTMLInputElement> document.getElementById("dev_unit_label");      
+        let unit = <HTMLInputElement> document.getElementById("dev_unit");         
 
         var selectedOption = instance.input.value;
 
@@ -358,7 +356,6 @@ class Main implements EventListenerObject{
             type.value = "3"; 
 
             unit.style.display = 'block';
-            //label.style.display = 'block';
 
         }    
 
@@ -436,9 +433,6 @@ window.addEventListener("load", () => {
     var instances = M.FormSelect.init(dropdown, ""); 
 
     let main1: Main = new Main();
-
-    //let slider = document.getElementById('range');
-
 
     let boton = document.getElementById("btnListar");    
     boton.addEventListener("click", main1);   
