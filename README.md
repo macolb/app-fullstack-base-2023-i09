@@ -24,6 +24,7 @@ En esta imagen podés ver una posible implementación del cliente web que contro
 
 ![Pag principal](https://github.com/macolb/app-fullstack-base-2023-i09/assets/9436321/1987526c-f4db-4771-899e-c02bfe5baddd)
 
+Finalmente se tiene un botón de inicio de sesión para manejar tema de permisos y lista de dispositivos por usuarios. Esto es como futura implementación ya que ahora solo guarda los nombres y contraseñas.
 
 ## Comenzando 🚀
 
@@ -46,7 +47,7 @@ Continua con la descarga del código cuando tengas las dependencias instaladas y
 Para descargar el código, lo más conveniente es que realices un `fork` de este proyecto a tu cuenta personal haciendo click en [este link](https://github.com/gotoiot/app-fullstack-base/fork). Una vez que ya tengas el fork a tu cuenta, descargalo con este comando (acordate de poner tu usuario en el link):
 
 ```
-git clone https://github.com/USER/app-fullstack-base.git
+[git clone https://github.com/macolb/app-fullstack-base-2023-i09.git
 ```
 
 > En caso que no tengas una cuenta en Github podes clonar directamente este repo.
