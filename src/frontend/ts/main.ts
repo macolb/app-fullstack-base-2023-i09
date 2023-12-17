@@ -349,9 +349,11 @@ class Main implements EventListenerObject{
         var selectedOption = instance.input.value;
 
         if(selectedOption == "ON/OFF"){
-            type.value = "1";            
+            type.value = "1";  
+            unit.style.display = 'none';          
         } else if(selectedOption == "Proportional"){
             type.value = "2";
+            unit.style.display = 'none';
         } else if(selectedOption == "Monitoring"){
             type.value = "3"; 
 
