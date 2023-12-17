@@ -13,9 +13,18 @@ La aplicación IoT de base que viene con este proyecto se encarga de crear una t
 
 Realizando estas tareas vas a a tener una aplicación fullstack IoT del mundo real que utiliza tecnologías actuales en la que un backend es capaz de interactuar con una DB para cumplir con las peticiones de control que se le mandan desde el cliente web.
 
+Vas a tener la opción de crear tres tipos de dispositivos:
+    - Dispositivo del tipo ON/OFF ---> Permiten el encendido y apagado del dispositivo. Su control es del tipo booleano.
+    - Dispositivos del tipo Proporcional ---> Son dispositivos que su control es proporcional esto es, son acción es regulable y tiene un rango de funcionamiento entre 0 y 10.
+    - Dispositivos del tipo Monitoreo ---> Estos son sensores que una vez dados de alta se van a comunicar con la base de datos para actualizar sus mediciones. Se tiene un campo mas de información que es para agregar la unidad de la mediciones.
+
+Los dispositivos pueden crear, editar o borrar. A su vez tienen un nombre, descripción, fecha de creacion y los botones de controles.
+
 En esta imagen podés ver una posible implementación del cliente web que controla los artefactos del hogar.
 
-![architecture](doc/webapp-example-1.png)
+![Pag principal](https://github.com/macolb/app-fullstack-base-2023-i09/assets/9436321/1987526c-f4db-4771-899e-c02bfe5baddd)
+
+Finalmente se tiene un botón de inicio de sesión para manejar tema de permisos y lista de dispositivos por usuarios. Esto es como futura implementación ya que ahora solo guarda los nombres y contraseñas.
 
 ## Comenzando 🚀
 
@@ -38,7 +47,7 @@ Continua con la descarga del código cuando tengas las dependencias instaladas y
 Para descargar el código, lo más conveniente es que realices un `fork` de este proyecto a tu cuenta personal haciendo click en [este link](https://github.com/gotoiot/app-fullstack-base/fork). Una vez que ya tengas el fork a tu cuenta, descargalo con este comando (acordate de poner tu usuario en el link):
 
 ```
-git clone https://github.com/USER/app-fullstack-base.git
+[git clone https://github.com/macolb/app-fullstack-base-2023-i09.git
 ```
 
 > En caso que no tengas una cuenta en Github podes clonar directamente este repo.
